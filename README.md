@@ -3,7 +3,8 @@ Testform
 
 Method of testing complex Enterprise Application Integrations
 
-The kinds of enterprise applications I work with, are very prone to failure. For example, we have an ERP like application with 35 integrations to other systems,    
+The kinds of enterprise applications I work with, are very prone to obscure data problems.    
+For example, we have an ERP like application with 35 integrations to other systems,      
 Procurement, HR, ERP, Data center applications, Network monitoring tools, the list goes on and on..    
 
 The goals of testform is to bring automated testing (verification) of the expected data in these applications.    
