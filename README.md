@@ -34,6 +34,28 @@ protocol://user:password@host[:port]/(database|datasource id)
     
 Very simple to format this as (TAP)[http://en.wikipedia.org/wiki/Test_Anything_Protocol] as well.    
     
+Tests are saved with an alias, this just makes the test script easier to read.    
+
 Fix any failed tests.  Error found that tests didn't find?  Create new test for that condition.    
     
 A wait command pauses execution of the test list.  It's used when we need the test to wait for something to happen.  Like other systems updating data and they only update on the hour.    
+Specified in milliseconds.. for instance wait one hour..    
+
+wait 60*1000*60   
+
+Made a little more readable in the reference implementation..    
+
+````
+var seconds = 1000, minutes = seconds*60, hours = minutes*60, days = hours*24;
+
+docommand(cmd, howmany, what){
+    if(cmd === 'wait') setTimeout(nexttest, howmany * what);
+}
+docommand('wait', 10, minutes);
+
+````
+    
+Example script:
+````
+
+````
