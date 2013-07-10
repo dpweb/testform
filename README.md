@@ -20,42 +20,21 @@ There must be a tiny learning curve
     
 Protocol
 ========
-+A Testform is a list
-+Each item is either a test or a wait command      
-    
-A test consists of:
++A Testform is a list of tests, in a script file like so..
 
-1) A Locator.  A URL, Connection string, etc.. that defines the location of the application or database.    
-A common URL structure is used for several database types here.. 
-
-protocol://user:password@host[:port]/(database|datasource id)    
-    
-2) A command (or database query).  That returns a result 0 or 1.  0 is test failure, 1 is test success.
-    
-Very simple to format this as (TAP)[http://en.wikipedia.org/wiki/Test_Anything_Protocol] as well.    
-    
-Tests are saved with an alias, this just makes the test script easier to read.    
-
-Fix any failed tests.  Error found that tests didn't find?  Create new test for that condition.    
-    
-A wait command pauses execution of the test list.  It's used when we need the test to wait for something to happen.  Like other systems updating data and they only update on the hour.    
-Specified in milliseconds.. for instance wait one hour..    
-
-wait 60*1000*60   
-
-Made a little more readable in the reference implementation..    
-
+script.txt
 ````
-var seconds = 1000, minutes = seconds*60, hours = minutes*60, days = hours*24;
+alias mydb sqlserver://<user:pass@server:port/db>
+alias hasUsers select count(*) from users;
+alias notZero { return {isSuccess: 1, Comment: r} } }
 
-docommand(cmd, howmany, what){
-    if(cmd === 'wait') setTimeout(nexttest, howmany * what);
-}
-docommand('wait', 10, minutes);
+mydb hasUsers notZero
+````
++ the alias command gives friendly names to connection strings, queries, and return functions
++ A test is specified by a connection string (or alias for it), a command (or db query), and return function.
++ The return functin evaluates the response from the remote server, r is the value returned.  You return an object with 
++ {
++   isSuccess: <evaluates to true|false>
++   Comment: a Comment for the test
++ }
 
-````
-    
-Example script:
-````
-
-````
