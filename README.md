@@ -38,3 +38,9 @@ mydb hasUsers notZero
 +   Comment: a Comment for the test
 + }
 
+The Strategy
+============
+A simple strategy is used.    
+<img src='https://www.filepicker.io/api/file/srryXNVBSIStlfoKFjyU'/>
+    
+
