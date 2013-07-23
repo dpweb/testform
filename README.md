@@ -1,12 +1,11 @@
 Testform
 ========
 
-Method of testing complex Enterprise Application Integrations
+Automated Testing for Enterprise Applications & Integrations
 
-The goals of testform is to bring automated testing (verification) of the expected data in ERP type applications.    
-By creating a method of developing tests for data accuracy and correct functionality in systems.    
-
-With the following requirements, and a very minimal set of features, but powerful.    
+Testform brings automated testing to Enterprise applications, with the following requirements, and a very 
+minimal, but powerful, set of features.  It arose from the need to test corporate applications across many systems, 
+that are integrated and may have data changing on various schedules.
 
 - Vendor, application, language agnostic    
 A reference implementation in Javascript will be provided here. Implementations for other platforms, Java, etc.. should be not too difficult.    
