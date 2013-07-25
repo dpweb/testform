@@ -1,0 +1,16 @@
+// ** shell command example **
+
+// make alias (not necessary to alias the cmd, but we'll do it here)
+alias dols cmd://ls
+
+// do an ls, check that the directory contains a file named testform.js
+dols - return {success: r.match(/testform\.js/)}
+
+// generate fail test
+dols - return {success: r.match(/some-nonexistent-file\.js/)}
+
+// without the alias
+cmd://ls - return {success: r.match(/testform\.js/)}
+
+// show results in comments
+cmd://ps - return {success: r, comment: r}

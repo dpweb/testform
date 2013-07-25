@@ -1,19 +1,18 @@
-var http = require('request'), cp = require('child_process'), mysql = require('mysql'),
+var ht = require('request'), cp = require('child_process'), mysql = require('mysql'),
 mongoskin = require('mongoskin'), redis = require('redis');
 
 var cnx = {
     query: function(c, q, cb){
-        if(!cb) cb = console.log;
-        this[c.split(':')[0]](c, q, cb);
+        cnx[c.split(':')[0]](c, q, cb);
     },
     http: function(u, q, cb){
-        http(u, cb);
+        ht(u, cb);
     },
     httpp: function(u, q, cb){
-        http.post(u.replace('httpp','http'), q, cb);
+        ht.post(u.replace('httpp','http'), q, cb);
     },
-    cmd: function(u, p){
-        cp.exec(u.replace('cmd://',''), p);
+    cmd: function(u, p, cb){
+        cp.exec(u.replace('cmd://',''), cb);
     },
     mysql: function(u, p, cb){
         var cl = mysql.createConnection(u);
