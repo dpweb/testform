@@ -10,7 +10,7 @@ require('colors'); var fs = require('fs');
 var q = require('./cnx.js').query, lines = [], tn = 0;
 
 // anti-db provides a _require command, simply to file save our alias file when the program closes
-require('anti-db')();
+require('./anti-db.js')();
 var aliases = _require('aliases.json');
 
 // read each line in the script
@@ -23,7 +23,11 @@ fs.readFile(process.argv[2], function(e, s){
 function docommand(s){
 	// blank line or comments
 	if(!s || s.match(/^\/\//)){
-		if(lines.length) docommand(lines.shift());
+		if(lines.length){
+			var x = lines.shift();
+			docommand(x);
+			return;
+		}
 		return;
 	}
 	// evaluate each word on the line
@@ -52,6 +56,6 @@ function docommand(s){
 			}
 		})
 	}
-	if(lines.length) docommand(lines.shift());
+	if(lines.length) return docommand(lines.shift());
 }
 

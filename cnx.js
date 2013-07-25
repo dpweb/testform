@@ -13,6 +13,7 @@ var cnx = {
     },
     cmd: function(u, p, cb){
         cp.exec(u.replace('cmd://',''), cb);
+        return;
     },
     mysql: function(u, p, cb){
         var cl = mysql.createConnection(u);

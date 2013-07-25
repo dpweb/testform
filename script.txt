@@ -13,4 +13,4 @@ dols - return {success: r.match(/some-nonexistent-file\.js/)}
 cmd://ls - return {success: r.match(/testform\.js/)}
 
 // show results in comments
-cmd://ps - return {success: r, comment: r}
+cmd://ls - return {success: r, comment: r}
