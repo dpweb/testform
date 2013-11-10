@@ -10,7 +10,7 @@ that are integrated and may have data changing on various schedules.
 - Vendor, application, language agnostic    
 A reference implementation in Javascript will be provided here. Implementations for other platforms, Java, etc.. should be not too difficult.    
 
-- Very short and easy to deal with.  There must be a tiny learning curve    
+- Very short and easy to deal with.  There must be a tiny learning curve.   
     
 Protocol
 ========
