@@ -3,36 +3,40 @@ Testform
 
 Automated Testing for Enterprise Applications & Integrations
 
-Testform brings automated testing to Enterprise applications, with the following requirements, and a very 
-minimal, but powerful, set of features.  It arose from the need to test corporate applications across many systems, 
-that are integrated and may have data changing on various schedules.
+Testform brings automated testing to Enterprise applications, with a very minimal but powerful set of features.    
+It arose from the need to test corporate applications across many systems, that are integrated and may have data changing on various schedules.    
 
-- Vendor, application, language agnostic    
+###Vendor, application, language agnostic    
 A reference implementation in Javascript will be provided here. Implementations for other platforms, Java, etc.. should be not too difficult.    
 
-- Very short and easy to deal with.  There must be a tiny learning curve.   
+###Very short and easy to deal with.
+There must be a tiny learning curve.   
     
 Protocol
 ========
 ####1.0 Test file
-A Testform is a text file, each line is a command, or definition of an alias for a command.
+A Testform is a text file.  Each line is a command, or aliases a command.
 
 ####1.1 Commands
 #####1.1.1 alias
-*alias* can be used as the first word of a line. It is followed by a name and command that the alias name can be used in place of.
+*alias* can be used as the first word of a line. It is followed by a name and command being aliased.
+````
+alias mydb sqlserver://<user:pass@server:port/db>
+````
 
 #####1.1.2 Locator commands
-A Locator command defines where a datasource is, although it may also define a file to be run, or command for another application.
+A Locator command defines the datasource, although it may also define a file to be run, or command for another application.
 In the reference code, the following URI scheme is used.  *type://<user:pass@server:port/db>*    
 The reference code uses the CNX library (and supporting modules), so those the databases, etc.. supported by CNX are supported here.    
 [https://github.com/dpweb/cnx] (https://github.com/dpweb/cnx)    
 
 #####1.1.3 Command commands
-A Command command gives parameters to whatever is defined by the locator.
+A Command command is parameters for the locator.
 
 #####1.1.4 Evaluator
-An Evaluator defines what constitutes a successful test, as the result of a command being exectuted against the located target.    
+An Evaluator defines the successful test.    
 It is a return function for whatever language platform is being used, in this case Javascript.    
+
 In Javascript it returns a JSON object with two keys.       
 *success* which is any statement that evaluates to true/false    
 *comment* which can provide comments to the testing program    
