@@ -5,11 +5,13 @@ var cnx = {
     query: function(c, q, cb){
         cnx[c.split(':')[0]](c, q, cb);
     },
-    http: function(u, q, cb){
-        ht(u, cb);
+    https: function(u, q, cb){
+        var x = cb;
+        ht.get(u, function(e,r,b){ x(b) });
     },
     httpp: function(u, q, cb){
-        ht.post(u.replace('httpp','http'), q, cb);
+        var x = cb;
+        ht.post(u.replace('httpp','http'), q, function(e,r,b){ x(b) });
     },
     cmd: function(u, p, cb){
         cp.exec(u.replace('cmd://',''), cb);

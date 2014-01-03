@@ -1,16 +1,6 @@
-// ** shell command example **
+// $ testform.js
 
-// make alias (not necessary to alias the cmd, but we'll do it here)
-alias dols cmd://ls
+alias assets https://user:pass@host.service-now.com/alm_asset.do?JSON
+alias over200 return { success: JSON.parse(r).records.length > 200, comment: JSON.parse(r).records.length }
 
-// do an ls, check that the directory contains a file named testform.js
-dols - return {success: r.match(/testform\.js/)}
-
-// generate fail test
-dols - return {success: r.match(/some-nonexistent-file\.js/)}
-
-// without the alias
-cmd://ls - return {success: r.match(/testform\.js/)}
-
-// show results in comments
-cmd://ls - return {success: r, comment: r}
+assets - over200

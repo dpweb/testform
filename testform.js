@@ -9,9 +9,8 @@ require('colors'); var fs = require('fs');
 // cnx.js is a frontend to query several types of dbs, run shell, commands, etc..
 var q = require('./cnx.js').query, lines = [], tn = 0;
 
-// anti-db provides a _require command, simply to file save our alias file when the program closes
-require('anti-db')();
-var aliases = _require('aliases.json');
+var adb = require('anti-db')();
+var aliases = adb.obj('./aliases.json');
 
 // read each line in the script
 fs.readFile(process.argv[2] || 'script.txt', function(e, s){
@@ -32,20 +31,18 @@ function docommand(s){
 	}
 	// evaluate each word on the line
 	var cmds = s.match(/(.*?)\s(.*?)\s(.*)$/); cmds.shift(); c=0;
-	cmds.forEach(function(cmd){
-		cmds[c++] = aliases[cmd] || cmd;
-	})
 
-	if(cmds[0].match(/^alias/)){
-		// create an alias
-		aliases[cmds[1]] = cmds[2];
-	} else {
+		if(cmds[0].match(/^alias/)){
+			cmds.shift();
+			aliases[cmds.shift()] = cmds.splice(0, 1).join(' ');
+			if(lines.length) return docommand(lines.shift());
+			return;
+		}
+
 		// run a command
 		var display = ('test' + ++tn);
-		q(cmds[0], cmds[1], function(e, r){
-			if(e) throw e;
-			var fns = cmds[2];
-			// create evaluator
+		q(aliases[cmds[0]] || cmds[0], aliases[cmds[1]] || cmds[1], function(r){
+			var fns = aliases[cmds[2]] || cmds[2];
 			if(fns){
 				var fn = new Function('var r = arguments[0];'+fns);
 				var test_result = fn(r);
@@ -55,7 +52,7 @@ function docommand(s){
 				if('undefined' !== typeof(test_result.comment)) console.log(test_result.comment);
 			}
 		})
-	}
+
 	if(lines.length) return docommand(lines.shift());
 }
 
